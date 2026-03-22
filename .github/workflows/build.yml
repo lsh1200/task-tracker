@@ -28,13 +28,13 @@ jobs:
         run: |
           xcodebuild -project TaskTracker.xcodeproj \
             -scheme TaskTracker \
-            -destination 'platform=iOS Simulator,name=iPhone 16' \
-            build 2>&1 | tail -5
+            -destination 'generic/platform=iOS Simulator' \
+            build CODE_SIGNING_ALLOWED=NO
 
       - name: Test
         run: |
           xcodebuild test \
             -project TaskTracker.xcodeproj \
             -scheme TaskTrackerTests \
-            -destination 'platform=iOS Simulator,name=iPhone 16' \
-            2>&1 | tail -20
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO
