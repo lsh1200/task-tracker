@@ -1,0 +1,52 @@
+name: TaskTracker
+options:
+  bundleIdPrefix: com.tasktracker
+  deploymentTarget:
+    iOS: "16.0"
+  xcodeVersion: "15.0"
+  generateEmptyDirectories: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    TARGETED_DEVICE_FAMILY: "1"
+    INFOPLIST_KEY_UILaunchScreen_Generation: YES
+    INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+    INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+
+targets:
+  TaskTracker:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources
+        type: group
+      - path: Resources
+        type: group
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.tasktracker.app
+        INFOPLIST_KEY_CFBundleDisplayName: Task Tracker
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        CODE_SIGN_IDENTITY: ""
+        CODE_SIGNING_REQUIRED: NO
+        CODE_SIGNING_ALLOWED: NO
+    dependencies:
+      - target: TaskTrackerTests
+        embed: false
+
+  TaskTrackerTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: Tests/TaskTrackerTests
+        type: group
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.tasktracker.tests
+        CODE_SIGN_IDENTITY: ""
+        CODE_SIGNING_REQUIRED: NO
+        CODE_SIGNING_ALLOWED: NO
+    dependencies:
+      - target: TaskTracker

@@ -1,0 +1,9 @@
+*.xcodeproj/
+*.xcworkspace/
+build/
+DerivedData/
+*.ipa
+*.dSYM
+*.mobileprovision
+*.plist
+project.yml.bak

@@ -1,0 +1,37 @@
+name: Build & Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        run: xcodegen generate
+        working-directory: .
+
+      - name: Build
+        run: |
+          xcodebuild -project TaskTracker.xcodeproj \
+            -scheme TaskTracker \
+            -destination 'platform=iOS Simulator,name=iPhone 16' \
+            build 2>&1 | tail -5
+
+      - name: Test
+        run: |
+          xcodebuild test \
+            -project TaskTracker.xcodeproj \
+            -scheme TaskTrackerTests \
+            -destination 'platform=iOS Simulator,name=iPhone 16' \
+            2>&1 | tail -20
